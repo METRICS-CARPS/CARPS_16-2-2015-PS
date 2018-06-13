@@ -4,6 +4,8 @@ output:
   html_document:
     toc: true
     toc_float: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 [PILOT/COPILOT - TEXT IN SQUARE BRACKETS IS HERE FOR GUIDANCE. COPILOT PLEASE DELETE BEFORE KNITTING THE FINAL REPORT]
@@ -28,13 +30,15 @@ completionDate <- NA # copilot insert the date of final report completion (after
 
 #### Methods summary: 
 
-[PILOT/COPILOT write a brief summary of the methods underlying the target outcomes written in your own words]
+The authors attempted to replicate previous findings that conception risk is related to women's racial bias. Specifically, previous research had found that women who had a higher likelihood of becoming pregnant given the day in their menstrual cycle exhibited stronger racial biases favoring White men over Black men on a variety of measures. The authors of the present study attempted to replicate this in a high-powered design. In Study 1 (which we attempt to reproduce in this report), 867 women were recruited. Participants' current menstrual cycle day was used to estimate conception-risk. Participants' explicit racial biases were estimated from self-report measures and implicit racial bias were estimated from Implicit Association Tests. 
 
 ------
 
 #### Target outcomes: 
 
-[PILOT copy and paste the target outcomes identified in targetOutcomes.md]  
+We will attempt to reproduce all findings related to Study 1 in the quoted text:
+
+> For all racial measures, higher scores represented pro-White bias. The mean score for implicit racial bias was 0.34 (SD = 0.43) in Study 1, 0.33 (SD = 0.42) in Study 2, 0.27 (SD = 0.41) in Study 3, and 0.18 (SD = 0.37) in Study 4. The mean score for explicit racial bias was 0.30 (SD = 1.09) in Study 1, 0.30 (SD = 1.05) in Study 2, 0.27 (SD = 0.83) in Study 3, and 0.53 (SD = 1.05) in Study 4. Mean rated warmth toward European Americans was 7.18 (SD = 2.07) in Study 1 and 7.15 (SD = 2.00) in Study 2, and mean rated warmth toward African Americans was 6.69 (SD = 2.06) in Study 1 and 6.78 (SD = 2.12) in Study 2. The mean score for explicit physicality stereotypes was 0.80 (SD = 0.83) in Study 3 and 0.81 (SD = 0.85) in Study 4, and the mean score for implicit physicality stereotypes was 0.26 (SD = 0.36) in Study 3 and 0.21 (SD = 0.38) in Study 4. As in Navarrete et al. (2009), we created composite bias scores in each study by standardizing and then averaging all racial-bias measures (warmth toward African Americans was subtracted from warmth toward European Americans to create a warmth difference score prior to standardizing). Mean conception risk was 0.03 (SD = 0.03) in Study 1, 0.03 (SD = 0.03) in Study 2, 0.04 (SD = 0.03) in Study 3, and 0.03 (SD = 0.03) in Study 4. Correlations were computed between conception risk and each race variable, including the composite score. To best match the existing literature, we computed correlations for White women only (see the Supplemental Material for additional analyses). Conception risk did not significantly correlate with any of the individual measures of racial bias (see Table S4 in the Supplemental Material) or with the composite score in Study 1, r = .00, 95% confidence interval (CI) = [−.09, .08]; Study 2, r = .00, 95% CI = [−.09, .08]; Study 3, r = .03, 95% CI = [−.17, .22]; or Study 4, r = .05, 95% CI = [−.11, .21]. (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
 
 ------
 
@@ -68,30 +72,72 @@ reportObject <- data.frame(dummyRow = TRUE, reportedValue = NA, obtainedValue = 
 # Step 2: Load data
 
 ```{r}
+#load full raw data. authors also included a pre-processed data file with excluded participants and standardized variables.
+d <-read_excel('data/study1/Study_1_full.xls')
 ```
 
 # Step 3: Tidy data
 
 ```{r}
+#add variable for subject ID; otherwise data is already in tidy format
+d$sid <- 1:length(d$session_status)
 ```
 
 # Step 4: Run analysis
 
 ## Pre-processing
 
-[you can remove this section if no pre-processing is required]
+>Following criteria from Navarrete et al. (2009) and McDonald et al. (2011), we excluded women who: (a) reported contraceptive use, that they were currently pregnant or uncertain of current pregnancy status, as well as women whose current cycle was day 41 or higher or had a previous cycle of irregular length - less than 20 days or more than 40 days; or (b) women who reported infertility due to menopause or some other health reason, or if they reported that they were uncertain of reproductive status, preferred not to say, or they left the reproductive question blank. After these exclusions, Study 1 contained 867 women and Study 2 contained 878 women with a valid conception risk score. (Supplementary Materials for Hawkins, Fitzgerald, & Nosek (2014) p. 1)
 
 ```{r}
+
+```
+
+>As in Navarrete et al. (2009), we created composite bias scores in each study by standardizing and then averaging all racial-bias measures (warmth toward African Americans was subtracted from warmth toward European Americans to create a warmth difference score prior to standardizing).(Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+```{r}
+#calculate zscores for all measures
+
+#calculate warmth difference scores
+
+#calculate composite score by averaging bias scores
+
+
 ```
 
 ## Descriptive statistics
 
+The mean score for implicit racial bias was 0.34 (SD = 0.43) in Study 1
 ```{r}
+
+```
+
+The mean score for explicit racial bias was 0.30 (SD = 1.09) in Study 1
+```{r}
+
+```
+
+Mean rated warmth toward European Americans was 7.18 (SD = 2.07) in Study 1
+```{r}
+
+```
+
+mean rated warmth toward African Americans was 6.69 (SD = 2.06) in Study 1
+```{r}
+
+```
+
+Mean conception risk was 0.03 (SD = 0.03) in Study 1
+```{r}
+
 ```
 
 ## Inferential statistics
 
+Correlations were computed between conception risk and each race variable, including the composite score. To best match the existing literature, we computed correla- tions for White women only (see the Supplemental Material for additional analyses).
+
+Conception risk did not significantly correlate with any of the individual measures of racial bias (see Table S4 in the Supplemental Material) or with the composite score in Study 1, r = .00, 95% confidence interval (CI) = [−.09, .08]; 
 ```{r}
+
 ```
 
 # Step 5: Conclusion
