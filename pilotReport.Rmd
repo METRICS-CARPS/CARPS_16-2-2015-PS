@@ -30,7 +30,7 @@ completionDate <- NA # copilot insert the date of final report completion (after
 
 #### Methods summary: 
 
-The authors attempted to replicate previous findings that conception risk is related to women's racial bias. Specifically, previous research had found that women who had a higher likelihood of becoming pregnant given the day in their menstrual cycle exhibited stronger racial biases favoring White men over Black men on a variety of measures. The authors of the present study attempted to replicate this in a high-powered design. In Study 1 (which we attempt to reproduce in this report), 867 women were recruited. Participants' current menstrual cycle day was used to estimate conception-risk. Participants' explicit racial biases were estimated from self-report measures and implicit racial bias were estimated from Implicit Association Tests. 
+The authors attempted to replicate previous findings that conception risk is related to women's racial bias. Specifically, previous research had found that women who had a higher likelihood of becoming pregnant given the day in their menstrual cycle exhibited stronger racial biases favoring White men over Black men on a variety of measures. The authors of the present study attempted to replicate this in a high-powered design. In Study 1 (which we attempt to reproduce in this report), 867 women were recruited. Participants' current menstrual cycle day was used to estimate conception-risk. Participants' explicit racial biases (explicit racial preference, explicit warmth towards Whites, explicit warmth towards Blacks) were estimated from self-report measures and implicit racial bias were estimated from Implicit Association Tests. Correlations with 95% confidence intervals were reported between conception risk and the explicit and implicit bias measures.
 
 ------
 
@@ -74,10 +74,8 @@ reportObject <- data.frame(dummyRow = TRUE, reportedValue = NA, obtainedValue = 
 # Step 2: Load data
 
 ```{r}
-#load full raw data. authors also included a pre-processed data file with excluded participants and standardized variables.
+#load full raw data. authors also included a pre-processed data file with excluded participants and standardized variables, but we will attempt to work from the raw data.
 d_raw <-read_excel('data/study1/Study_1_full.xls')
-
-d_raw_ <-read_excel('data/study1/Study_1_qualified.xls') 
 ```
 
 # Step 3: Tidy data
@@ -91,7 +89,7 @@ d_raw$sid <- 1:length(d_raw$session_status)
 
 ## Pre-processing
 
->Following criteria from Navarrete et al. (2009) and McDonald et al. (2011), we excluded women who: (a) reported contraceptive use, that they were currently pregnant or uncertain of current pregnancy status, as well as women whose current cycle was day 41 or higher or had a previous cycle of irregular length - less than 20 days or more than 40 days; or (b) women who reported infertility due to menopause or some other health reason, or if they reported that they were uncertain of reproductive status, preferred not to say, or they left the reproductive question blank. After these exclusions, Study 1 contained 867 women and Study 2 contained 878 women with a valid conception risk score. (Supplementary Materials for Hawkins, Fitzgerald, & Nosek (2014) p. 1)
+>...we excluded women who: (a) reported contraceptive use, that they were currently pregnant or uncertain of current pregnancy status, as well as women whose current cycle was day 41 or higher or had a previous cycle of irregular length - less than 20 days or more than 40 days; or (b) women who reported infertility due to menopause or some other health reason, or if they reported that they were uncertain of reproductive status, preferred not to say, or they left the reproductive question blank. After these exclusions, Study 1 contained 867 women and Study 2 contained 878 women with a valid conception risk score. (Supplementary Materials for Hawkins, Fitzgerald, & Nosek (2014) p. 1)
 
 ```{r}
 d <- d_raw%>%
@@ -103,24 +101,17 @@ d <- d_raw%>%
          pregnow == "no")
 ```
 
->As in Navarrete et al. (2009), we created composite bias scores in each study by standardizing and then averaging all racial-bias measures (warmth toward African Americans was subtracted from warmth toward European Americans to create a warmth difference score prior to standardizing).(Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+>...we created composite bias scores in each study by standardizing and then averaging all racial-bias measures (warmth toward African Americans was subtracted from warmth toward European Americans to create a warmth difference score prior to standardizing).(Hawkins, Fitzgerald & Nosek, 2014, p. 250)
 
 ```{r}
-#calculate z scores for variables
 d%<>%
-  mutate(zIAT = scale(IAT, center = TRUE, scale = TRUE),
-         zattitude = scale(attitude, center = TRUE, scale = TRUE),
+  mutate(zIAT = scale(IAT, center = TRUE, scale = TRUE), #calculate z scores for variables
+         zattitude = scale(attitude, center = TRUE, scale = TRUE), 
          zwarmth_black = scale(warmth_black, center = TRUE, scale = TRUE),
          zwarmth_white = scale(warmth_white, center = TRUE, scale = TRUE),
-         zrisk = scale(risk, center = TRUE, scale = TRUE))
-
-#calculate warmth difference scores
-d%<>%
-  mutate(zwarmth_diff = zwarmth_white - zwarmth_black)
-
-#calculate composite score by averaging bias scores
-d%<>%
-  mutate(zatt_composite = (zIAT + zattitude + zwarmth_diff)/3)
+         zrisk = scale(risk, center = TRUE, scale = TRUE),
+         zwarmth_diff = zwarmth_white - zwarmth_black, #calculate warmth difference score
+         zatt_composite = (zIAT + zattitude + zwarmth_diff)/3) #calculate composite score by averaging bias scores
 ```
 
 ## Descriptive statistics
@@ -185,6 +176,8 @@ reportObject <- reproCheck(reportedValue = '.03', obtainedValue = ms_risk$sd, va
 >Correlations were computed between conception risk and each race variable, including the composite score. To best match the existing literature, we computed correlations for White women only...
 
 >Conception risk did not significantly correlate with any of the individual measures of racial bias (see Table S4 in the Supplemental Material) or with the composite score in Study 1, r = .00, 95% confidence interval (CI) = [−.09, .08] (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
+In the following section, we attempt to reproduce the correlations (with 95% confidence intervals) reported in Table S4 for Study 1.
 
 ```{r}
 cortab <- d %>%
@@ -328,7 +321,9 @@ reportObject <- reproCheck(reportedValue = '.39', obtainedValue = unname(warmth_
 
 # Step 5: Conclusion
 
-[Please include a text summary describing your findings. If this reproducibility check was a failure, you should note any suggestions as to what you think the likely cause(s) might be.]
+We found several discrepencies between values reported in the text and our obtained values. The authors included a table of correlations with 95% confidence intervals between the different dependent measures (available in Supplemental Materials). We noted several major errors in correlation coefficients (r values) and confidence intervals. It is not clear to us what the source of the discrepency is, although it could be that different software packages (the authors used SAS and we are using R) give different values for these tests. None of the errors amount to decision errors or change the conclusions. 
+
+All descriptive statistics reported in the paper matched our obtained values.
   
 [PILOT/COPILOT ENTER RELEVANT INFORMATION BELOW]
 
