@@ -179,6 +179,8 @@ reportObject <- reproCheck(reportedValue = '.03', obtainedValue = ms_risk$sd, va
 
 In the following section, we attempt to reproduce the correlations (with 95% confidence intervals) reported in Table S4 for Study 1.
 
+![](img/tableS4.png)
+
 ```{r}
 cortab <- d %>%
   filter(race == "6") #filter for White women
