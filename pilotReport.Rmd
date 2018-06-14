@@ -125,39 +125,59 @@ d%<>%
 
 ## Descriptive statistics
 
-The mean score for implicit racial bias was 0.34 (SD = 0.43) in Study 1
+>The mean score for implicit racial bias was 0.34 (SD = 0.43) in Study 1 (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
 ```{r}
 ms_implicit_bias <- d%>%
   filter(!is.na(IAT))%>%
   summarise(mean = mean(IAT), sd = sd(IAT))
+
+reportObject <- reproCheck(reportedValue = '.34', obtainedValue = ms_implicit_bias$mean, valueType = 'mean')
+reportObject <- reproCheck(reportedValue = '.43', obtainedValue = ms_implicit_bias$sd, valueType = 'sd')
 ```
 
-The mean score for explicit racial bias was 0.30 (SD = 1.09) in Study 1
+>The mean score for explicit racial bias was 0.30 (SD = 1.09) in Study 1 (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
 ```{r}
 ms_explicit_bias <- d%>%
   filter(!is.na(attitude))%>%
   summarise(mean = mean(attitude), sd = sd(attitude))
+
+reportObject <- reproCheck(reportedValue = '.30', obtainedValue = ms_explicit_bias$mean, valueType = 'mean')
+reportObject <- reproCheck(reportedValue = '1.09', obtainedValue = ms_explicit_bias$sd, valueType = 'sd')
 ```
 
-Mean rated warmth toward European Americans was 7.18 (SD = 2.07) in Study 1
+>Mean rated warmth toward European Americans was 7.18 (SD = 2.07) in Study 1 (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
 ```{r}
 ms_warmth_white <- d%>%
   filter(!is.na(warmth_white))%>%
   summarise(mean = mean(warmth_white), sd = sd(warmth_white))
+
+reportObject <- reproCheck(reportedValue = '7.18', obtainedValue = ms_warmth_white$mean, valueType = 'mean')
+reportObject <- reproCheck(reportedValue = '2.07', obtainedValue = ms_warmth_white$sd, valueType = 'sd')
 ```
 
-mean rated warmth toward African Americans was 6.69 (SD = 2.06) in Study 1
+>mean rated warmth toward African Americans was 6.69 (SD = 2.06) in Study 1 (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
 ```{r}
 ms_warmth_black <- d%>%
   filter(!is.na(warmth_black))%>%
   summarise(mean = mean(warmth_black), sd = sd(warmth_black))
+
+reportObject <- reproCheck(reportedValue = '6.69', obtainedValue = ms_warmth_black$mean, valueType = 'mean')
+reportObject <- reproCheck(reportedValue = '2.06', obtainedValue = ms_warmth_black$sd, valueType = 'sd')
 ```
 
-Mean conception risk was 0.03 (SD = 0.03) in Study 1
+>Mean conception risk was 0.03 (SD = 0.03) in Study 1 (Hawkins, Fitzgerald & Nosek, 2014, p. 250)
+
 ```{r}
 ms_risk <- d%>%
   filter(!is.na(risk))%>%
   summarise(mean = mean(risk), sd = sd(risk))
+
+reportObject <- reproCheck(reportedValue = '.03', obtainedValue = ms_risk$mean, valueType = 'mean')
+reportObject <- reproCheck(reportedValue = '.03', obtainedValue = ms_risk$sd, valueType = 'sd')
 ```
 
 ## Inferential statistics
