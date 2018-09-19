@@ -8,21 +8,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-[PILOT/COPILOT - TEXT IN SQUARE BRACKETS IS HERE FOR GUIDANCE. COPILOT PLEASE DELETE BEFORE KNITTING THE FINAL REPORT]
-
 # Report Details
-
-[PILOT/COPILOT ENTER RELEVANT REPORT DETAILS HERE]
 
 ```{r}
 articleID <- 16-2-2015 # insert the article ID code here e.g., "10-3-2015_PS"
-reportType <- 'pilot' # specify whether this is the 'pilot' report or 'final' report
+reportType <- 'final' # specify whether this is the 'pilot' report or 'final' report
 pilotNames <- 'Emily Hembacher' # insert the pilot's name here e.g., "Tom Hardwicke".  If there are multiple cpilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
-copilotNames <- NA # # insert the co-pilot's name here e.g., "Michael Frank". If there are multiple co-pilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
-pilotTTC <- NA # insert the pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
+copilotNames <- 'Tom Hardwicke' # # insert the co-pilot's name here e.g., "Michael Frank". If there are multiple co-pilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
+pilotTTC <- 300 # insert the pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
 copilotTTC <- NA # insert the co-pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
-pilotStartDate <- '06/13/18' # insert the pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
-copilotStartDate <- NA # insert the co-pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+pilotStartDate <- as.Date("06/13/18", format = "%m/%d/%y") # insert the pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+copilotStartDate <- as.Date("06/21/18", format = "%m/%d/%y") # insert the co-pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
 completionDate <- NA # copilot insert the date of final report completion (after any necessary rounds of author assistance) in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
 ```
 
@@ -42,16 +38,12 @@ We will attempt to reproduce all findings related to Study 1 in the quoted text:
 
 ------
 
-[PILOT/COPILOT DO NOT CHANGE THE CODE IN THE CHUNK BELOW]  
-
 ```{r global_options, include=FALSE}
 # sets up some formatting options for the R Markdown document
 knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
 ```
 
 # Step 1: Load packages and prepare report object
-
-[PILOT/COPILOT Some useful packages are being loaded below. You can add any additional ones you might need too.]
 
 ```{r}
 # load packages
@@ -63,8 +55,6 @@ library(CARPSreports) # custom report functions
 library(magrittr)
 library(Hmisc)
 ```
-
-[PILOT/COPILOT DO NOT MAKE CHANGES TO THE CODE CHUNK BELOW]
 
 ```{r}
 # Prepare report object. This will be updated automatically by the reproCheck function each time values are compared
@@ -92,7 +82,7 @@ d_raw$sid <- 1:length(d_raw$session_status)
 >...we excluded women who: (a) reported contraceptive use, that they were currently pregnant or uncertain of current pregnancy status, as well as women whose current cycle was day 41 or higher or had a previous cycle of irregular length - less than 20 days or more than 40 days; or (b) women who reported infertility due to menopause or some other health reason, or if they reported that they were uncertain of reproductive status, preferred not to say, or they left the reproductive question blank. After these exclusions, Study 1 contained 867 women and Study 2 contained 878 women with a valid conception risk score. (Supplementary Materials for Hawkins, Fitzgerald, & Nosek (2014) p. 1)
 
 ```{r}
-d <- d_raw%>%
+d <- d_raw %>%
   filter(repstatus == "fertile",
          currentcycle_day < 41,
          currentcycle_day > 0,
@@ -326,8 +316,6 @@ reportObject <- reproCheck(reportedValue = '.39', obtainedValue = unname(warmth_
 We found several discrepencies between values reported in the text and our obtained values. The authors included a table of correlations with 95% confidence intervals between the different dependent measures (available in Supplemental Materials). We noted several major errors in correlation coefficients (r values) and confidence intervals. It is not clear to us what the source of the discrepency is, although it could be that different software packages (the authors used SAS and we are using R) give different values for these tests. None of the errors amount to decision errors or change the conclusions. 
 
 All descriptive statistics reported in the paper matched our obtained values.
-  
-[PILOT/COPILOT ENTER RELEVANT INFORMATION BELOW]
 
 ```{r}
 Author_Assistance = FALSE # was author assistance provided? (if so, enter TRUE)
@@ -344,8 +332,6 @@ locus_unidentified <- NA # how many discrete issues were there for which you cou
 
 Affects_Conclusion <- NA # Do any reproducibility issues encounter appear to affect the conclusions made in the original article? TRUE, FALSE, or NA. This is a subjective judgement, but you should taking into account multiple factors, such as the presence/absence of decision errors, the number of target outcomes that could not be reproduced, the type of outcomes that could or could not be reproduced, the difference in magnitude of effect sizes, and the predictions of the specific hypothesis under scrutiny.
 ```
-
-[PILOT/COPILOT DO NOT EDIT THE CODE CHUNK BELOW]
 
 ```{r}
 reportObject <- reportObject %>%
@@ -383,8 +369,6 @@ if(reportType == "final"){
 ```
 
 # Session information
-
-[This function will output information about the package versions used in this report:]
 
 ```{r session_info, include=TRUE, echo=TRUE, results='markup'}
 devtools::session_info()
