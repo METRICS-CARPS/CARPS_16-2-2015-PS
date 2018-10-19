@@ -1,0 +1,2 @@
+articleID,pilotNames,copilotNames,pilotTTC,copilotTTC,pilotStartDate,copilotStartDate,completionDate,Author_Assistance,finalOutcome,Insufficient_Information_Errors,locus_typo,locus_specification,locus_analysis,locus_data,locus_unidentified
+-2001,Emily Hembacher,Michael Frank,300,60,2018-06-13,2018-10-19,NA,FALSE,Failure without author assistance,0,0,0,0,0,NA
