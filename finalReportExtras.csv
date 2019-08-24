@@ -1,2 +1,2 @@
-articleID,pilotNames,copilotNames,pilotTTC,copilotTTC,pilotStartDate,copilotStartDate,completionDate,Author_Assistance,finalOutcome,Insufficient_Information_Errors,locus_typo,locus_specification,locus_analysis,locus_data,locus_unidentified
-16-2-2015_PS,Emily Hembacher,Michael Frank,300,60,2018-06-13,2018-10-19,NA,FALSE,Failure without author assistance,0,0,0,0,0,NA
+articleID,pilotNames,copilotNames,pilotTTC,copilotTTC,pilotStartDate,copilotStartDate,completionDate,Author_Assistance,finalOutcome,Insufficient_Information_Errors,locus_typo,locus_specification,locus_analysis,locus_data,locus_unidentified,locus_typo_resolved,locus_specification_resolved,locus_analysis_resolved,locus_data_resolved,locus_unidentified_resolved
+16-2-2015_PS,Emily Hembacher,"Michael Frank, Tom Hardwicke",300,120,2018-06-13,2018-10-19,2018-08-24,FALSE,Failure without author assistance,0,0,0,0,0,1,NA,NA,NA,NA,NA

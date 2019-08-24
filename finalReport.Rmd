@@ -14,12 +14,12 @@ editor_options:
 articleID <- "16-2-2015_PS" # insert the article ID code here e.g., "10-3-2015_PS"
 reportType <- 'final' # specify whether this is the 'pilot' report or 'final' report
 pilotNames <- 'Emily Hembacher' # insert the pilot's name here e.g., "Tom Hardwicke".  If there are multiple cpilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
-copilotNames <- 'Michael Frank' # # insert the co-pilot's name here e.g., "Michael Frank". If there are multiple co-pilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
+copilotNames <- 'Michael Frank, Tom Hardwicke' # # insert the co-pilot's name here e.g., "Michael Frank". If there are multiple co-pilots enter both names in a character string e.g., "Tom Hardwicke, Bob Dylan"
 pilotTTC <- 300 # insert the pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
-copilotTTC <- 60 # insert the co-pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
+copilotTTC <- 120 # insert the co-pilot's estimated time to complete (in minutes, fine to approximate) e.g., 120
 pilotStartDate <- as.Date("06/13/18", format = "%m/%d/%y") # insert the pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
 copilotStartDate <- as.Date("10/19/18", format = "%m/%d/%y") # insert the co-pilot's start date in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
-completionDate <- NA # copilot insert the date of final report completion (after any necessary rounds of author assistance) in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
+completionDate <- as.Date("08/24/18", format = "%m/%d/%y") # copilot insert the date of final report completion (after any necessary rounds of author assistance) in US format e.g., as.Date("01/25/18", format = "%m/%d/%y")
 ```
 
 ------
@@ -405,11 +405,17 @@ reportObject <- reproCheck(reportedValue = '.39', obtainedValue = unname(warmth_
 
 # Step 5: Conclusion
 
-We found several discrepencies between values reported in the text and our obtained values. The authors included a table of correlations with 95% confidence intervals between the different dependent measures (available in Supplemental Materials). 
+We found several small discrepencies between values reported in the text and our obtained values. The authors included a table of correlations with 95% confidence intervals between the different dependent measures (available in Supplemental Materials). 
 
-We noted several "major errors" in correlation coefficients ($r$ values) and confidence intervals. All of these are very small in magnitude, however (all < .03 correlation units). It is not clear to us what the source of the discrepency is, although it could be that different software packages (the authors used SAS and we are using R) give different values for these tests. (One possibility is minor numerical differences in how standardization of variables is performed). 
+We noted several "major errors" in correlation coefficients ($r$ values) and confidence intervals. All of these are very small in magnitude (all < .03 correlation units) but reach the 10% threshold. It is not clear to us what the source of the discrepency is, although it could be that different software packages (the authors used SAS and we are using R) give different values for these tests. (One possibility is minor numerical differences in how standardization of variables is performed). 
 
-None of the errors amount to decision errors or change the conclusions and all descriptive statistics reported in the paper matched our obtained values.
+We attempted to run the SAS program provided by the authors along with the article. However, the program is trying to read in the following text files: ‘explicit.txt’ ‘sessions.txt’, ‘sessionTasks.txt’, ‘iat.txt’, which, as far as we can tell, are not shared along with the article. We contacted the corresponding author on April 23, 2019, to request these files. We initially received a response from the corresponding author on Apr 23 (2019) which offered to help in principle but noted that this could take some time. We sent follow-up e-mails on April 25, May 22, and July 2, but received no further response. We ultimately decided to close the reproducibility check on August 24th.
+
+
+Note that although we made contact with an author, no substantive assistance was provided - this is reflected in the categorisation of this case as "Failure without author assistance".
+
+None of the reproducibility issues we identified could substantially change the authors' original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.
+
 
 ```{r}
 Author_Assistance = FALSE # was author assistance provided? (if so, enter TRUE)
@@ -422,7 +428,14 @@ locus_typo <- 0 # how many discrete issues did you encounter that related to typ
 locus_specification <- 0 # how many discrete issues did you encounter that related to incomplete, incorrect, or unclear specification of the original analyses?
 locus_analysis <- 0 # how many discrete issues did you encounter that related to errors in the authors' original analyses?
 locus_data <- 0 # how many discrete issues did you encounter that related to errors in the data files shared by the authors?
-locus_unidentified <- NA # how many discrete issues were there for which you could not identify the cause
+locus_unidentified <- 1 # how many discrete issues were there for which you could not identify the cause
+
+# How many of the above issues were resolved through author assistance?
+locus_typo_resolved <- NA # how many discrete issues did you encounter that related to typographical errors?
+locus_specification_resolved <- NA # how many discrete issues did you encounter that related to incomplete, incorrect, or unclear specification of the original analyses?
+locus_analysis_resolved <- NA # how many discrete issues did you encounter that related to errors in the authors' original analyses?
+locus_data_resolved <- NA # how many discrete issues did you encounter that related to errors in the data files shared by the authors?
+locus_unidentified_resolved <- NA # how many discrete issues were there for which you could not identify the cause
 
 Affects_Conclusion <- FALSE # Do any reproducibility issues encounter appear to affect the conclusions made in the original article? TRUE, FALSE, or NA. This is a subjective judgement, but you should taking into account multiple factors, such as the presence/absence of decision errors, the number of target outcomes that could not be reproduced, the type of outcomes that could or could not be reproduced, the difference in magnitude of effect sizes, and the predictions of the specific hypothesis under scrutiny.
 ```
@@ -435,7 +448,7 @@ reportObject <- reportObject %>%
   select(articleID, everything()) # make articleID first column
 
 # decide on final outcome
-if(any(reportObject$comparisonOutcome != "MATCH") | Insufficient_Information_Errors > 0){
+if(any(reportObject$comparisonOutcome %in% c("MAJOR_ERROR", "DECISION_ERROR")) | Insufficient_Information_Errors > 0){
   finalOutcome <- "Failure without author assistance"
   if(Author_Assistance == T){
     finalOutcome <- "Failure despite author assistance"
@@ -448,7 +461,7 @@ if(any(reportObject$comparisonOutcome != "MATCH") | Insufficient_Information_Err
 }
 
 # collate report extra details
-reportExtras <- data.frame(articleID, pilotNames, copilotNames, pilotTTC, copilotTTC, pilotStartDate, copilotStartDate, completionDate, Author_Assistance, finalOutcome, Insufficient_Information_Errors, locus_typo, locus_specification, locus_analysis, locus_data, locus_unidentified)
+reportExtras <- data.frame(articleID, pilotNames, copilotNames, pilotTTC, copilotTTC, pilotStartDate, copilotStartDate, completionDate, Author_Assistance, finalOutcome, Insufficient_Information_Errors, locus_typo, locus_specification, locus_analysis, locus_data, locus_unidentified, locus_typo_resolved, locus_specification_resolved, locus_analysis_resolved, locus_data_resolved, locus_unidentified_resolved)
 
 # save report objects
 if(reportType == "pilot"){
