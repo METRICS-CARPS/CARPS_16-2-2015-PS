@@ -51,7 +51,7 @@ library(tidyverse) # for data munging
 library(knitr) # for kable table formating
 library(haven) # import and export 'SPSS', 'Stata' and 'SAS' Files
 library(readxl) # import excel files
-library(CARPSreports) # custom report functions
+library(ReproReports) # custom report functions
 library(magrittr)
 library(Hmisc)
 ```
@@ -411,7 +411,6 @@ We noted several "major errors" in correlation coefficients ($r$ values) and con
 
 We attempted to run the SAS program provided by the authors along with the article. However, the program is trying to read in the following text files: ‘explicit.txt’ ‘sessions.txt’, ‘sessionTasks.txt’, ‘iat.txt’, which, as far as we can tell, are not shared along with the article. We contacted the corresponding author on April 23, 2019, to request these files. We initially received a response from the corresponding author on Apr 23 (2019) which offered to help in principle but noted that this could take some time. We sent follow-up e-mails on April 25, May 22, and July 2, but received no further response. We ultimately decided to close the reproducibility check on August 24th.
 
-
 Note that although we made contact with an author, no substantive assistance was provided - this is reflected in the categorisation of this case as "Failure without author assistance".
 
 None of the reproducibility issues we identified could substantially change the authors' original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.
@@ -448,7 +447,7 @@ reportObject <- reportObject %>%
   select(articleID, everything()) # make articleID first column
 
 # decide on final outcome
-if(any(reportObject$comparisonOutcome %in% c("MAJOR_ERROR", "DECISION_ERROR")) | Insufficient_Information_Errors > 0){
+if(any(!(reportObject$comparisonOutcome %in% c("MATCH", "MINOR_ERROR"))) | Insufficient_Information_Errors > 0){
   finalOutcome <- "Failure without author assistance"
   if(Author_Assistance == T){
     finalOutcome <- "Failure despite author assistance"
