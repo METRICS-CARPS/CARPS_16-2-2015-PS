@@ -1876,7 +1876,7 @@ reportObject &lt;- reproCheck(reportedValue = '.32', obtainedValue = unname(warm
 <p>We noted several “major errors” in correlation coefficients (<span class="math inline">\(r\)</span> values) and confidence intervals. All of these are very small in magnitude (all &lt; .03 correlation units) but reach the 10% threshold. It is not clear to us what the source of the discrepency is, although it could be that different software packages (the authors used SAS and we are using R) give different values for these tests. (One possibility is minor numerical differences in how standardization of variables is performed).</p>
 <p>We attempted to run the SAS program provided by the authors along with the article. However, the program is trying to read in the following text files: ‘explicit.txt’ ‘sessions.txt’, ‘sessionTasks.txt’, ‘iat.txt’, which, as far as we can tell, are not shared along with the article. We contacted the corresponding author on April 23, 2019, to request these files. We initially received a response from the corresponding author on Apr 23 (2019) which offered to help in principle but noted that this could take some time. We sent follow-up e-mails on April 25, May 22, and July 2, but received no further response. We ultimately decided to close the reproducibility check on August 24th.</p>
 <p>Note that although we made contact with an author, no substantive assistance was provided - this is reflected in the categorisation of this case as “Failure without author assistance”.</p>
-<p>None of the reproducibility issues we identified could substantially change the authors’ original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.</p>
+<p>None of the reproducibility issues we identified are likely to substantially change the authors’ original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.</p>
 <pre class="r"><code>Author_Assistance = FALSE # was author assistance provided? (if so, enter TRUE)
 
 Insufficient_Information_Errors &lt;- 0 # how many discrete insufficient information issues did you encounter?
@@ -1943,7 +1943,7 @@ if(reportType == &quot;final&quot;){
 ##  collate  en_US.UTF-8                 
 ##  ctype    en_US.UTF-8                 
 ##  tz       Europe/London               
-##  date     2020-05-06                  
+##  date     2020-05-12                  
 ## 
 ## ─ Packages ───────────────────────────────────────────────────────────────────
 ##  package      * version date       lib

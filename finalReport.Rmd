@@ -413,7 +413,7 @@ We attempted to run the SAS program provided by the authors along with the artic
 
 Note that although we made contact with an author, no substantive assistance was provided - this is reflected in the categorisation of this case as "Failure without author assistance".
 
-None of the reproducibility issues we identified could substantially change the authors' original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.
+None of the reproducibility issues we identified are likely to substantially change the authors' original conclusions and we could successfully reproduce all reported descriptive statistics for the target outcomes.
 
 
 ```{r}
